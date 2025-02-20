@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CNN Image Prediction Tool</title>
+    {% comment %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    {% endcomment %}
+  </head>
+
+  <body>
+    <div class="header">
+      <h1><span>Rice Leaf Disease Prediction Using CNN and eXplainable AI</span></h1>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input class="custom-file-upload" type="file" accept=".jpg,.jpeg,.png" name="image" id="file" />
+      <button class="compress_image" type="submit" id="submitBtn">Predict Disease</button>
+      <div class="status">
+        <p id="message">{{ message }}</p>
+      </div>
+    </form>
+
+    <div class="wrapper">
+      {% if prediction %}
+      <div class="info_container">
+        <h5>Prediction: <span class="name">{{ prediction }} ({{ confident }})</span></h5>
+      </div>
+      {% endif %} {% if image_url %}
+      <img src="{{ image_url }}" alt="Uploaded Image" width="300px" />
+      {% endif %} {% if Error %}
+      <div class="info_container">
+        <h3>Prediction: <span class="name">{{ Error }}</span></h3>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="header">
+      <h4><span>Tensored </span>Django</h4>
+    </div>
+
+    {% comment %}
+    <script src="{% static 'js/main.js' %}"></script>
+    {% endcomment %}
+  </body>
+</html>
